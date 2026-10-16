@@ -1,0 +1,155 @@
+:root {
+  --color-fondo: #F4F6F3;
+  --color-tarjeta: #FFFFFF;
+  --color-texto: #111827;
+  --color-texto-secundario: #6B7280;
+  --color-borde: #E5E7EB;
+  --color-acento: #1B5E4B;
+  --color-acento-hover: #12342B;
+  --color-exito: #10B981;
+  --color-alerta: #F59E0B;
+  --color-peligro: #EF4444;
+  --radio: 12px;
+  --sombra: 0 1px 3px rgba(0, 0, 0, 0.08);
+}
+
+* { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+  background: var(--color-fondo);
+  color: var(--color-texto);
+}
+
+a { color: var(--color-acento); text-decoration: none; }
+
+.contenedor {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 24px;
+}
+
+.tarjeta {
+  background: var(--color-tarjeta);
+  border-radius: var(--radio);
+  box-shadow: var(--sombra);
+  border: 1px solid var(--color-borde);
+  padding: 20px;
+}
+
+.boton {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 10px 16px;
+  border-radius: 8px;
+  border: none;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.15s;
+}
+
+.boton-primario { background: var(--color-acento); color: white; }
+.boton-primario:hover { background: var(--color-acento-hover); }
+.boton-secundario { background: #EFF2F7; color: var(--color-texto); }
+.boton-secundario:hover { background: #E2E6ED; }
+.boton-peligro { background: var(--color-peligro); color: white; }
+.boton-peligro:hover { background: #DC2626; }
+.boton:disabled { opacity: 0.5; cursor: not-allowed; }
+
+.campo { margin-bottom: 14px; }
+.campo label {
+  display: block;
+  font-size: 13px;
+  color: var(--color-texto-secundario);
+  margin-bottom: 4px;
+  font-weight: 600;
+}
+.campo input, .campo select, .campo textarea {
+  width: 100%;
+  padding: 10px 12px;
+  border: 1px solid var(--color-borde);
+  border-radius: 8px;
+  font-size: 14px;
+  font-family: inherit;
+}
+.campo input:focus, .campo select:focus, .campo textarea:focus {
+  outline: none;
+  border-color: var(--color-acento);
+}
+
+table { width: 100%; border-collapse: collapse; font-size: 14px; }
+th, td { text-align: left; padding: 10px 12px; border-bottom: 1px solid var(--color-borde); }
+th { color: var(--color-texto-secundario); font-weight: 600; font-size: 12px; text-transform: uppercase; }
+tbody tr:hover { background: #FAFBFC; }
+
+.pastilla {
+  display: inline-block;
+  padding: 3px 10px;
+  border-radius: 999px;
+  font-size: 12px;
+  font-weight: 600;
+  color: white;
+}
+
+.mensaje-error {
+  background: #FEF2F2;
+  color: #B91C1C;
+  padding: 10px 14px;
+  border-radius: 8px;
+  font-size: 13px;
+  margin-bottom: 14px;
+}
+
+.mensaje-exito {
+  background: #ECFDF5;
+  color: #047857;
+  padding: 10px 14px;
+  border-radius: 8px;
+  font-size: 13px;
+  margin-bottom: 14px;
+}
+
+.barra-progreso {
+  height: 10px;
+  border-radius: 999px;
+  background: #E5E7EB;
+  overflow: hidden;
+}
+.barra-progreso-relleno {
+  height: 100%;
+  background: var(--color-exito);
+  transition: width 0.3s;
+}
+
+/* Impresión de recibos: solo se imprime el recibo, no el resto de la pantalla */
+@media print {
+  body * { visibility: hidden; }
+  .recibo-impresion, .recibo-impresion * { visibility: visible; }
+  .recibo-impresion { position: absolute; left: 0; top: 0; width: 100%; padding: 24px; }
+  .no-imprimir { display: none !important; }
+}
+
+/* ---------- Cuadrículas reutilizables (se apilan en pantallas pequeñas) ---------- */
+.grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+.grid-3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
+.grid-filtros { display: grid; grid-template-columns: 2fr 1fr 1fr 1fr auto; gap: 12px; align-items: end; }
+.encabezado-pagina { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 10px; margin-bottom: 16px; }
+.encabezado-pagina h1 { margin: 0; }
+
+@media (max-width: 860px) {
+  .contenedor { padding: 16px; }
+  .grid-3 { grid-template-columns: 1fr; }
+  .grid-filtros { grid-template-columns: 1fr 1fr; }
+  /* las tablas anchas se desplazan de lado en vez de romper la página */
+  .tarjeta { overflow-x: auto; }
+  .tarjeta > table { min-width: 560px; }
+  td, th { white-space: nowrap; }
+}
+@media (max-width: 560px) {
+  .grid-2 { grid-template-columns: 1fr; }
+  .grid-filtros { grid-template-columns: 1fr; }
+  h1 { font-size: 24px; }
+}

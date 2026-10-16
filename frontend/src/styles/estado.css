@@ -1,0 +1,87 @@
+/* Estado de cuenta del cliente. Diseñado primero para celular; se amplía desde 640px. */
+.estado { min-height: 100vh; background: #F4F6F3; color: #12342B; }
+
+.estado-cabecera {
+  position: relative; overflow: hidden; background: #12342B; color: #EAF2EC;
+  padding: 18px 20px 70px;
+}
+.estado-cabecera svg.mapa { position: absolute; inset: 0; width: 100%; height: 100%; opacity: 0.5; }
+.estado-cabecera::after {
+  content: ''; position: absolute; inset: 0; pointer-events: none;
+  background: linear-gradient(to bottom, rgba(18, 52, 43, 0.1), #12342B 96%);
+}
+.estado-cabecera > :not(svg) { position: relative; z-index: 1; }
+.estado-marca { display: flex; align-items: center; gap: 10px; font-weight: 600; font-size: 14px; margin-bottom: 18px; }
+.estado-marca .sello {
+  width: 30px; height: 30px; border-radius: 8px; background: #EAF2EC; color: #12342B;
+  display: grid; place-items: center; font-weight: 800; font-size: 15px;
+}
+.estado-cabecera h1 { font-family: Georgia, 'Times New Roman', serif; font-weight: 400; font-size: 26px; line-height: 1.15; margin: 0 0 4px; }
+.estado-cabecera p { margin: 0; color: #BFD3C7; font-size: 15px; }
+
+.estado-cuerpo { max-width: 640px; margin: -44px auto 0; padding: 0 14px 40px; position: relative; z-index: 2; }
+.estado-tarjeta {
+  background: #fff; border: 1px solid #E1E6E1; border-radius: 14px; padding: 18px; margin-bottom: 14px;
+  box-shadow: 0 1px 3px rgba(18, 52, 43, 0.07);
+}
+.estado-tarjeta h2 { margin: 0; font-size: 17px; }
+.estado-etiqueta { font-size: 12px; color: #66736C; }
+.estado-valor { font-weight: 600; font-size: 16px; }
+
+/* Línea de tiempo */
+.etapas { display: flex; position: relative; }
+.etapas-linea, .etapas-avance { position: absolute; top: 10px; left: 12.5%; height: 3px; border-radius: 2px; }
+.etapas-linea { right: 12.5%; background: #E1E6E1; }
+.etapas-avance { background: #1E9E7A; }
+.etapa { flex: 1; text-align: center; position: relative; z-index: 2; font-size: 11px; color: #66736C; }
+.etapa .punto { width: 22px; height: 22px; border-radius: 50%; margin: 0 auto 6px; background: #fff; border: 2px solid #D5DBD6; }
+.etapa.hecha .punto { background: #1E9E7A; border-color: #1E9E7A; }
+.etapa.hecha { color: #12342B; }
+.etapa.actual { font-weight: 700; }
+
+.estado-encabezado { display: flex; justify-content: space-between; align-items: center; gap: 10px; margin-bottom: 12px; }
+.estado-insignia { color: #fff; font-size: 12px; font-weight: 600; padding: 3px 11px; border-radius: 999px; }
+.estado-progreso-texto { font-size: 12px; color: #66736C; margin: 6px 0 16px; }
+.estado-datos { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+
+.estado-proxima { border-left: 4px solid #E0A526; }
+.estado-proxima.vencida { border-left-color: #D64533; }
+.estado-proxima .fila { display: flex; justify-content: space-between; align-items: center; gap: 10px; }
+.estado-proxima .monto { font-weight: 700; font-size: 18px; white-space: nowrap; }
+.estado-ok { border-left: 4px solid #1E9E7A; }
+
+/* Historial de pagos */
+.historial { list-style: none; margin: 12px 0 0; padding: 0; }
+.historial li { display: flex; justify-content: space-between; align-items: center; gap: 12px; padding: 11px 0; border-top: 1px solid #EEF1EE; }
+.historial li:first-child { border-top: none; }
+.historial .fecha { font-size: 14px; }
+.historial .metodo { font-size: 12px; color: #66736C; }
+.historial .monto { font-weight: 600; color: #1E9E7A; white-space: nowrap; }
+.estado-vacio { color: #66736C; font-size: 14px; margin: 12px 0 0; }
+.estado-enlace { background: none; border: none; color: #1B5E4B; font-weight: 600; font-size: 14px; cursor: pointer; padding: 10px 0 0; font-family: inherit; }
+.estado-enlace:hover { text-decoration: underline; }
+
+.estado-acciones { display: grid; gap: 10px; }
+.estado-boton {
+  display: flex; justify-content: center; align-items: center; gap: 8px; padding: 14px; border-radius: 10px;
+  font-weight: 600; font-size: 15px; border: none; cursor: pointer; font-family: inherit; text-decoration: none;
+}
+.estado-boton.whatsapp { background: #25D366; color: #fff; }
+.estado-boton.secundario { background: #E4EAE5; color: #12342B; }
+.estado-boton:focus-visible { outline: 3px solid rgba(30, 107, 85, 0.5); outline-offset: 2px; }
+.estado-pie { text-align: center; font-size: 12px; color: #66736C; margin-top: 18px; }
+
+/* Pantallas de carga / error */
+.estado-centro { min-height: 100vh; display: grid; place-items: center; padding: 24px; background: #F4F6F3; color: #12342B; text-align: center; }
+.estado-centro .estado-tarjeta { max-width: 420px; }
+
+@media (min-width: 640px) {
+  .estado-cabecera { padding: 28px 40px 84px; }
+  .estado-cabecera h1 { font-size: 38px; }
+  .estado-cuerpo { margin-top: -56px; padding: 0 20px 56px; }
+  .estado-tarjeta { padding: 22px; }
+  .estado-datos { grid-template-columns: repeat(4, 1fr); }
+  .estado-acciones { grid-template-columns: 1fr 1fr; }
+  .etapa { font-size: 13px; }
+}
+@media (prefers-reduced-motion: reduce) { .barra-progreso-relleno { transition: none; } }

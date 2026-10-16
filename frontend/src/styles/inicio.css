@@ -1,0 +1,63 @@
+/* Página de inicio: elegir entre Clientes y Administración */
+.inicio {
+  position: relative;
+  min-height: 100vh;
+  background: #12342B;
+  color: #EAF2EC;
+  display: grid;
+  place-items: center;
+  padding: 40px 20px;
+  overflow: hidden;
+}
+.inicio svg.mapa { position: absolute; inset: 0; width: 100%; height: 100%; opacity: 0.35; }
+/* velo para que el texto siempre se lea sobre el plano */
+.inicio::after {
+  content: ''; position: absolute; inset: 0; pointer-events: none;
+  background: radial-gradient(ellipse at center, rgba(18, 52, 43, 0.92) 25%, rgba(18, 52, 43, 0.35) 80%);
+}
+.inicio-contenido { position: relative; z-index: 1; width: 100%; max-width: 720px; text-align: center; }
+
+.inicio-marca { display: inline-flex; align-items: center; gap: 12px; font-weight: 600; margin-bottom: 28px; }
+.inicio-marca .sello {
+  width: 40px; height: 40px; border-radius: 11px; background: #EAF2EC; color: #12342B;
+  display: grid; place-items: center; font-weight: 800; font-size: 19px;
+}
+.inicio h1 {
+  font-family: Georgia, 'Times New Roman', serif; font-weight: 400;
+  font-size: clamp(32px, 5vw, 52px); line-height: 1.1; margin: 0 0 12px;
+}
+.inicio .sub { margin: 0 auto 40px; max-width: 30em; color: #BFD3C7; font-size: 16px; line-height: 1.5; }
+
+.inicio-opciones { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 18px; text-align: left; }
+.opcion {
+  display: flex; flex-direction: column; gap: 10px; padding: 26px; border-radius: 16px;
+  text-decoration: none; transition: transform 0.18s ease, box-shadow 0.18s ease, background 0.18s;
+}
+.opcion:hover { transform: translateY(-3px); }
+.opcion:focus-visible { outline: 3px solid #8FE3C4; outline-offset: 3px; }
+.opcion .icono { width: 46px; height: 46px; border-radius: 12px; display: grid; place-items: center; }
+.opcion h2 { margin: 6px 0 0; font-size: 22px; font-weight: 600; }
+.opcion p { margin: 0; font-size: 14px; line-height: 1.5; }
+.opcion .entrar { margin-top: 10px; font-weight: 600; font-size: 14px; display: inline-flex; align-items: center; gap: 8px; }
+.opcion .entrar svg { transition: transform 0.18s; }
+.opcion:hover .entrar svg { transform: translateX(4px); }
+
+/* Clientes: tarjeta clara, es la entrada principal */
+.opcion-clientes { background: #F6F7F3; color: #12342B; box-shadow: 0 12px 34px rgba(0, 0, 0, 0.28); }
+.opcion-clientes .icono { background: #12342B; color: #EAF2EC; }
+.opcion-clientes p { color: #4D5B54; }
+
+/* Administración: tarjeta translúcida, entrada secundaria */
+.opcion-admin { background: rgba(234, 242, 236, 0.08); color: #EAF2EC; border: 1.5px solid rgba(234, 242, 236, 0.28); }
+.opcion-admin:hover { background: rgba(234, 242, 236, 0.14); }
+.opcion-admin .icono { background: rgba(234, 242, 236, 0.14); color: #EAF2EC; }
+.opcion-admin p { color: #BFD3C7; }
+
+@media (max-width: 640px) {
+  .inicio-opciones { grid-template-columns: 1fr; }
+  .inicio .sub { margin-bottom: 28px; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .opcion, .opcion .entrar svg { transition: none; }
+  .opcion:hover { transform: none; }
+}

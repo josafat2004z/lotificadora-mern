@@ -1,0 +1,118 @@
+/* Login: panel con plano de manzanas + formulario */
+.login {
+  --verde-oscuro: #12342B;
+  --verde-linea: #8DB5A3;
+  --papel: #F6F7F3;
+  min-height: 100vh;
+  display: grid;
+  grid-template-columns: minmax(0, 1.1fr) minmax(0, 1fr);
+  background: var(--papel);
+}
+
+/* ---------- Panel del plano ---------- */
+.login-plano {
+  position: relative;
+  background: var(--verde-oscuro);
+  color: #EAF2EC;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 44px 48px;
+}
+.login-plano svg.mapa {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+}
+/* Desvanece el plano hacia abajo para que el título y la leyenda siempre se lean */
+.login-plano::after {
+  content: ''; position: absolute; inset: 0; pointer-events: none; z-index: 0;
+  background: linear-gradient(to top, #12342B 30%, rgba(18, 52, 43, 0.85) 50%, rgba(18, 52, 43, 0) 78%);
+}
+.login-marca, .login-lema, .login-leyenda { position: relative; z-index: 1; }
+.login-marca { display: flex; align-items: center; gap: 12px; font-weight: 600; letter-spacing: 0.01em; }
+.login-marca .sello {
+  width: 38px; height: 38px; border-radius: 10px;
+  background: #EAF2EC; color: var(--verde-oscuro);
+  display: grid; place-items: center; font-weight: 800; font-size: 18px;
+}
+.login-lema h2 {
+  font-family: Georgia, 'Times New Roman', serif;
+  font-weight: 400;
+  font-size: clamp(30px, 3.4vw, 46px);
+  line-height: 1.1;
+  margin: 0 0 12px;
+  max-width: 13em;
+  text-shadow: 0 2px 18px var(--verde-oscuro), 0 0 6px var(--verde-oscuro);
+}
+.login-lema p {
+  margin: 0; max-width: 28em; color: #BFD3C7; font-size: 15px; line-height: 1.55;
+  text-shadow: 0 1px 10px var(--verde-oscuro);
+}
+.login-leyenda { display: flex; gap: 18px; flex-wrap: wrap; font-size: 13px; color: #BFD3C7; }
+.login-leyenda span { display: inline-flex; align-items: center; gap: 7px; }
+.login-leyenda i { width: 11px; height: 11px; border-radius: 3px; display: inline-block; }
+
+/* Los lotes se "venden" una sola vez al cargar la página */
+.lote { transition: none; }
+.lote-anim { opacity: 0; animation: aparecer 0.5s ease-out forwards; }
+@keyframes aparecer { to { opacity: 1; } }
+
+/* ---------- Formulario ---------- */
+.login-form-lado { display: grid; place-items: center; padding: 32px 24px; }
+.login-form { width: 100%; max-width: 380px; }
+.login-form h1 {
+  font-family: Georgia, 'Times New Roman', serif;
+  font-weight: 400; font-size: 32px; margin: 0 0 6px; color: #12342B;
+}
+.login-form .sub { margin: 0 0 28px; color: #5F6B64; font-size: 14px; }
+
+.login-campo { margin-bottom: 18px; }
+.login-campo label { display: block; font-size: 13px; font-weight: 600; color: #2B3A33; margin-bottom: 6px; }
+.login-input {
+  display: flex; align-items: center;
+  background: #fff; border: 1.5px solid #D5DBD6; border-radius: 10px;
+  transition: border-color 0.15s, box-shadow 0.15s;
+}
+.login-input:focus-within { border-color: #1E6B55; box-shadow: 0 0 0 4px rgba(30, 107, 85, 0.14); }
+.login-input input {
+  flex: 1; min-width: 0; border: none; outline: none; background: transparent;
+  padding: 13px 14px; font-size: 15px; font-family: inherit; color: #12342B;
+}
+.login-input button.ver {
+  border: none; background: none; cursor: pointer; padding: 0 14px;
+  color: #5F6B64; font-size: 13px; font-weight: 600; font-family: inherit;
+}
+.login-input button.ver:hover { color: #12342B; }
+.login-input button.ver:focus-visible { outline: 2px solid #1E6B55; border-radius: 6px; }
+
+.login-error {
+  background: #FDF1EF; color: #A32A1E; border-left: 3px solid #D64533;
+  padding: 10px 12px; border-radius: 6px; font-size: 13px; margin-bottom: 18px;
+}
+.login-boton {
+  width: 100%; border: none; cursor: pointer; font-family: inherit;
+  background: #12342B; color: #fff; font-size: 15px; font-weight: 600;
+  padding: 14px; border-radius: 10px; transition: background 0.15s, transform 0.05s;
+}
+.login-boton:hover:not(:disabled) { background: #1B4A3D; }
+.login-boton:active:not(:disabled) { transform: translateY(1px); }
+.login-boton:focus-visible { outline: 3px solid rgba(30, 107, 85, 0.45); outline-offset: 2px; }
+.login-boton:disabled { opacity: 0.6; cursor: wait; }
+.login-volver { display: inline-block; margin-top: 22px; font-size: 13px; color: #5F6B64; }
+.login-volver:hover { color: #12342B; }
+
+/* ---------- Móvil ---------- */
+@media (max-width: 860px) {
+  .login { grid-template-columns: 1fr; }
+  .login-plano { padding: 24px; min-height: 190px; }
+  .login-lema p, .login-leyenda { display: none; }
+  .login-lema h2 { font-size: 24px; margin: 0; }
+  .login-form-lado { padding-top: 28px; align-items: start; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .lote-anim { animation: none; opacity: 1; }
+}
